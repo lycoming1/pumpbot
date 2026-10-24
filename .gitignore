@@ -1,0 +1,7 @@
+target/
+.cargo-home/
+data/
+.env
+*.db
+*.db-wal
+*.db-shm

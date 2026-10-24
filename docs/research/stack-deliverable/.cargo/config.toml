@@ -1,0 +1,5 @@
+# x86-64-v3 = AVX2/BMI2/FMA/MOVBE: presenti sulla VM (Ryzen 7 5700X, CPU type host).
+# Piu' portabile di target-cpu=native (gira anche su VM 102/103 dello stesso host).
+# NB: se si esporta RUSTFLAGS nell'ambiente, questo valore viene IGNORATO.
+[build]
+rustflags = ["-C", "target-cpu=x86-64-v3"]

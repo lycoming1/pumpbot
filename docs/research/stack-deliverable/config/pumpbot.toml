@@ -1,0 +1,24 @@
+# Esempio di configurazione (chiavi lette da env, mai scritte qui)
+[source]
+kind = "ws_logs"                       # "ws_logs" | "grpc" (feature grpc)
+ws_url_env = "HELIUS_WS_URL"           # es. wss://mainnet.helius-rpc.com/?api-key=...
+program = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+commitment = "processed"
+ping_secs = 30                         # Helius chiude dopo 10 min di inattivita'
+ipv4_only = true
+
+[storage]
+dir = "/data"
+batch_rows = 1000
+batch_ms = 250
+sqlite_cache_kib = 16384
+store_signatures = "fills_only"        # "none" | "fills_only" | "all"
+
+[telegram]
+token_env = "TELEGRAM_BOT_TOKEN"
+chat_id_env = "TELEGRAM_CHAT_ID"
+daily_report_utc_hour = 6
+
+[log]
+filter = "info,pumpbot=debug"          # tracing_subscriber::filter::Targets (niente regex)
+stats_every_secs = 60
