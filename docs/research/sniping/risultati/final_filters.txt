@@ -1,0 +1,29 @@
+L=2 regola=TP20/SL20/60s B=0.1 n=2793
+
+# dev_sol
+  scoperta  0: n= 306 mean=  -1.9% med=  -2.5% win=   9% | <0.5: n= 307 mean=  -1.5% med=  -2.5% win=  13% | <2: n= 400 mean=  -3.2% med=  -4.6% win=  28% | >=2: n= 383 mean=  -5.2% med= -20.2% win=  32%
+  verifica  0: n= 431 mean=  -2.1% med=  -2.5% win=   6% | <0.5: n= 233 mean=  -2.1% med=  -2.5% win=  13% | <2: n= 344 mean=  -4.0% med=  -6.2% win=  25% | >=2: n= 389 mean=  -7.6% med= -20.0% win=  30%
+
+# s0_in (bundle)
+  scoperta  0: n= 724 mean=  -2.3% med=  -2.5% win=  12% | <1: n= 165 mean=  -1.8% med=  -5.0% win=  27% | <5: n= 242 mean=  -6.7% med= -17.0% win=  27% | >=5: n= 265 mean=  -2.5% med= -16.5% win=  42%
+  verifica  0: n= 790 mean=  -2.8% med=  -2.5% win=  10% | <1: n= 141 mean=  -1.2% med=  -3.7% win=  27% | <5: n= 254 mean=  -9.5% med= -17.6% win=  24% | >=5: n= 212 mean=  -4.5% med= -17.6% win=  39%
+
+# creator_seen
+  scoperta  False: n=1006 mean=  -2.9% med=  -2.5% win=  25% | True: n= 390 mean=  -3.6% med=  -2.5% win=  14%
+  verifica  False: n= 739 mean=  -4.3% med=  -2.5% win=  22% | True: n= 658 mean=  -4.0% med=  -2.5% win=  15%
+
+# copycat
+  scoperta  False: n= 743 mean=  -3.0% med=  -2.5% win=  21% | True: n= 653 mean=  -3.2% med=  -2.5% win=  23%
+  verifica  False: n= 706 mean=  -4.0% med=  -2.5% win=  19% | True: n= 691 mean=  -4.2% med=  -2.5% win=  18%
+
+# tool
+  scoperta  ipfs: n= 858 mean=  -2.5% med=  -2.5% win=  21% | j7tracker: n= 351 mean=  -2.6% med=  -4.6% win=  24% | other: n= 187 mean=  -6.6% med= -11.5% win=  24%
+  verifica  ipfs: n= 834 mean=  -2.7% med=  -2.5% win=  17% | j7tracker: n= 333 mean=  -6.5% med= -12.4% win=  23% | other: n= 230 mean=  -5.8% med=  -3.1% win=  17%
+
+# launch_prog
+  scoperta  False: n=1256 mean=  -3.1% med=  -2.5% win=  21% | True: n= 140 mean=  -3.0% med=  -2.5% win=  30%
+  verifica  False: n=1259 mean=  -4.0% med=  -2.5% win=  17% | True: n= 138 mean=  -5.3% med=  -2.5% win=  30%
+
+# multiwallet_create
+  scoperta  False: n=1395 mean=  -3.1% med=  -2.5% win=  22% | True: n=   1 mean= +23.1% med= +23.1% win= 100%
+  verifica  False: n=1396 mean=  -4.1% med=  -2.5% win=  18% | True: n=   1 mean= -42.8% med= -42.8% win=   0%

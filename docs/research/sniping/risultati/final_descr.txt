@@ -1,0 +1,42 @@
+token 2836
+dev buy SOL (tx di create) p10..p99 [0.0, 0.04, 0.795, 2.469, 4.938, 11.852] zero: 0.132
+SOL entrati in S0 oltre la tx di create p10..p99 [0.0, 0.0, 0.0, 3.108, 6.988, 19.556] quota >0: 0.457 >=5: 0.171
+prezzo a fine S0+0 vs subito dopo la tx di create: media +18.1% p50 +0.0% p90 +45.7%
+prezzo a fine S0+1 vs subito dopo la tx di create: media +16.4% p50 +0.7% p90 +50.0%
+prezzo a fine S0+2 vs subito dopo la tx di create: media +16.7% p50 +1.2% p90 +51.2%
+prezzo a fine S0+3 vs subito dopo la tx di create: media +16.7% p50 +1.3% p90 +50.7%
+prezzo a fine S0+6 vs subito dopo la tx di create: media +17.2% p50 +1.2% p90 +52.2%
+prezzo a fine S0+10 vs subito dopo la tx di create: media +16.7% p50 +0.7% p90 +52.4%
+token con almeno un cambio di stato tra S0+3 e S0+17: 55%
+token con almeno un cambio di stato tra S0+3 e S0+152: 72%
+token con almeno un cambio di stato tra S0+3 e S0+1417: 83%
+slot con cambio di stato nei 5 min dopo S0+2: p50/p90 [5, 85]
+graduati entro 10 min: 57 (2.01%)
+===
+{
+ "pp_creates": 4012,
+ "matched": 3653,
+ "pp_minus_S0_firstseen_ms_p10_p50_p90": [
+  -4714,
+  -385,
+  203
+ ],
+ "slots_already_seen_at_pp_arrival_p10_p50_p90": [
+  -20,
+  -2,
+  0
+ ],
+ "logs_confirmed_minus_pp_ms_p10_p50_p90": [
+  146,
+  461,
+  4133
+ ]
+}
+===
+migrazioni con dati: 83 (mayhem esclusi: 39)
+L=0  H5: n=83 mean=-6.1% med=-2.5% win=14% | H25: n=83 mean=-5.0% med=-2.1% win=19% | H50: n=83 mean=-6.5% med=-1.9% win=22% | H150: n=83 mean=-9.4% med=-1.1% win=33% | H300: n=83 mean=-6.4% med=+0.9% win=53% | H700: n=83 mean=-10.9% med=+1.2% win=52% | H1400: n=83 mean=-21.5% med=-12.7% win=40%
+L=1  H5: n=83 mean=-5.2% med=-2.4% win=14% | H25: n=83 mean=-3.6% med=-2.2% win=19% | H50: n=83 mean=-5.7% med=-1.8% win=23% | H150: n=83 mean=-10.0% med=-1.4% win=30% | H300: n=83 mean=-6.0% med=+1.1% win=54% | H700: n=83 mean=-10.4% med=+1.2% win=52% | H1400: n=83 mean=-21.5% med=-12.6% win=41%
+L=2  H5: n=83 mean=-3.8% med=-2.3% win=17% | H25: n=83 mean=-3.4% med=-2.2% win=19% | H50: n=83 mean=-6.4% med=-2.0% win=22% | H150: n=83 mean=-10.3% med=-1.4% win=28% | H300: n=83 mean=-6.6% med=+1.0% win=53% | H700: n=83 mean=-10.3% med=+2.2% win=52% | H1400: n=83 mean=-21.6% med=-12.6% win=41%
+L=3  H5: n=83 mean=-3.7% med=-2.3% win=14% | H25: n=83 mean=-4.5% med=-2.2% win=16% | H50: n=83 mean=-5.9% med=-1.9% win=19% | H150: n=83 mean=-10.8% med=-1.7% win=28% | H300: n=83 mean=-5.7% med=+0.5% win=52% | H700: n=83 mean=-10.0% med=+2.6% win=53% | H1400: n=83 mean=-21.2% med=-11.7% win=40%
+L=5  H5: n=83 mean=-1.6% med=-2.4% win=13% | H25: n=83 mean=+0.3% med=-2.3% win=18% | H50: n=83 mean=-3.3% med=-1.9% win=18% | H150: n=83 mean=-9.5% med=-1.1% win=30% | H300: n=83 mean=-4.7% med=+1.0% win=57% | H700: n=83 mean=-9.6% med=+3.4% win=51% | H1400: n=83 mean=-20.7% med=-11.7% win=41%
+L=10  H5: n=83 mean=-1.0% med=-2.5% win=10% | H25: n=83 mean=-1.0% med=-2.5% win=13% | H50: n=83 mean=-6.2% med=-2.2% win=17% | H150: n=83 mean=-10.0% med=-1.4% win=27% | H300: n=83 mean=-5.0% med=+0.2% win=55% | H700: n=83 mean=-10.5% med=-0.3% win=49% | H1400: n=83 mean=-20.7% med=-11.4% win=42%

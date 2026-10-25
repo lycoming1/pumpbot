@@ -16,6 +16,42 @@ Documenti di riferimento (verificati il 24/10/2026, leggerli prima di implementa
 
 ---
 
+## 0. Correzioni dopo le misure del 24 ott 2026 (implementate)
+
+Dalla registrazione di 4 ore fatta per l'analisi dello sniping (`docs/research/sniping.md`) sono emersi fatti che
+cambiano alcune scelte di questo documento. Dove il resto del testo è in conflitto, vale questa sezione.
+
+- **Ridondanza dei flussi.** Ogni WebSocket dell'RPC pubblico si chiude con errore 1002 ogni 2–3 minuti, e ogni
+  chiusura perde 5–50 slot. Una sola connessione programSubscribe riceve il 93–97% delle notifiche dell'unione di due.
+  - Tier A, Tier B e Tier C girano quindi su **due hostname** (`api.mainnet-beta.solana.com` e
+    `api.mainnet.solana.com`), con deduplica: (slot, curva) per il Tier A, firma della tx per i log.
+  - Con l'unione, il 97% degli slot con trade ha la notifica Tier A, con stato identico al 99,7%.
+- **Finalizzazione solo per tempo.** Lo slot S di una curva si finalizza quando l'orologio supera
+  S + `finalize_lag_slots` (default 75, ~16 s), non all'arrivo di un evento successivo. Il Tier A arriva 2–10 slot dopo i log
+  del Tier B: finalizzare al primo evento successivo perderebbe lo stato di fine slot.
+  - L'orologio è il massimo slot visto su qualunque flusso: `slotSubscribe` dell'RPC pubblico è in ritardo di 1–5 s
+    sul vertice della catena.
+- **Ordine dei trade nello slot.** I log non portano l'indice della tx nel blocco: l'ordine si ricostruisce alla
+  finalizzazione concatenando pre-stato e post-stato, partendo dallo stato di fine slot precedente. Se la catena non si
+  chiude, o non coincide con lo stato Tier A dello slot, il mint diventa `dirty`.
+- **Buchi nel feed e soglia di rilevanza.** Anche con due hostname l'RPC pubblico non consegna alcune tx: hanno lo stesso
+  backend. Nella prova del 25 ott una tx `Buy` valida non è arrivata su nessuna delle due connessioni.
+  - Un mint diventa `dirty` solo se la variazione non spiegata (buco di catena, differenza dallo stato Tier A, trade in
+    ritardo) vale almeno `dirty_min_gap_sol` (0,05 SOL).
+  - Le rotture minori, tipicamente micro-acquisti da 1.000 lamport, restano contate (`breaks`) ma non sospendono i
+    segnali.
+- **Migrazione in posizione.** Il Tier D (log del pool) non viene implementato in Fase 1.
+  - Quando la curva risulta completa, la posizione si chiude L slot dopo, al prezzo del pool appena creato: base
+    206,9e12 token, quote = rq finale − 15.000.001 lamport, formula PumpSwap con fee 1,25%.
+  - Il motivo d'uscita è `graduated`, analizzabile a parte.
+  - È un evento raro, e il prezzo del pool è continuo con la fine della curva (−0,024%).
+- **Valutazione.** Si usa lo stato osservato, senza il nostro acquisto: è prudente, come in §5.2.
+- **Archivio per il replay.** Il database eventi registra:
+  - gli stati Tier A di **tutte** le curve dell'universo (~40/s, ~0,2 GB/giorno), non solo di quelle watched;
+  - i trade Tier B e i create, completi dei campi che servono al motore.
+
+  Così `replay` può riprovare anche bande diverse.
+
 ## 1. Vincoli
 
 - VM con ~2,5 GB di RAM disponibile e swap pieno: build **sempre** in container con limite di memoria

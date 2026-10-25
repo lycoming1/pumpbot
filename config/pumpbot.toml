@@ -1,0 +1,58 @@
+# pumpbot — Fase 1: osservatore + paper trading (nessun ordine reale, nessuna chiave privata).
+# Tutti i valori qui sotto sono i default: si possono omettere.
+
+[feed]
+# Due hostname dell'RPC pubblico in parallelo, con deduplica (DESIGN §0).
+ws_urls = ["wss://api.mainnet-beta.solana.com", "wss://api.mainnet.solana.com"]
+commitment = "confirmed"
+ping_secs = 20
+idle_reconnect_secs = 45       # flussi continui (Tier A, orologio) muti da tanto: riconnessione
+max_subs_per_conn = 40         # sottoscrizioni logs per connessione (Tier B)
+max_watched = 300              # curve osservate al massimo (priorità a posizioni e SOL reali)
+redundant_tier_b = true        # ogni curva osservata su tutti gli hostname
+watch_rq_sol = 1.0             # inizia a osservare da 1 SOL reale (~4,4% di progresso)
+unwatch_rq_sol = 0.5
+unwatch_low_slots = 300
+watch_idle_slots = 3000        # ~10 minuti senza cambi
+complete_unwatch_slots = 600
+finalize_lag_slots = 75        # attesa prima di finalizzare uno slot (~16 s): copre i ritardi del pubsub pubblico
+dirty_cooldown_slots = 300
+dirty_min_gap_sol = 0.05       # un buco nei dati rende il mint dirty solo se vale almeno 0,05 SOL
+sub_spacing_ms = 40
+
+[storage]
+dir = "/data"
+retention_days = 21            # file events-AAAAMMGG.db
+batch_rows = 1000
+batch_ms = 250
+
+[telegram]
+token_env = "TELEGRAM_BOT_TOKEN"
+chat_id_env = "TELEGRAM_CHAT_ID"
+report_every_hours = 6         # alle 0, 6, 12, 18 UTC
+alert_feed_silent_secs = 120
+alert_dirty_threshold = 50
+
+[engine]
+size_sol = 0.25
+bankroll_sol = 10.0
+max_positions = 5              # per configurazione
+cooldown_slots = 50            # per mint, dopo l'uscita
+buy_guard = 0.15               # il buy fallisce se il prezzo a S+L supera il trigger di oltre il 15%
+sell_guard = 0.25              # il sell fallisce se rende meno del 75% del valore atteso: retry
+max_sell_retries = 5
+stale_slots = 150              # uscita per inattività
+v0_prob = 0.10                 # probabilità di ingresso del controllo casuale per slot idoneo
+v4_liq_velocity_sol = 0.05     # V4: ΔvSOL per trade minimo
+fallback_fee_bps = [95, 30]
+cost_comp_ok = 0.001155        # base + priority + tip (profilo competitive)
+cost_comp_fail = 0.000155
+cost_eco_ok = 0.00004
+cost_eco_fail = 0.000035
+
+[grid]
+bands = ["A_utente", "B_progresso"]
+variants = ["V0_random", "V1a_letterale", "V1b", "V2", "V3", "V4"]
+exits = ["E1", "E2", "E3"]
+latencies = [1, 3, 6]
+worst_in_slot_latencies = [3]

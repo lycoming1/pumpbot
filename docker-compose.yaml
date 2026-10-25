@@ -1,0 +1,25 @@
+services:
+  pumpbot:
+    build: .
+    image: kraken/pumpbot:latest
+    container_name: pumpbot
+    restart: unless-stopped
+    user: "1000:1000"          # scrive su ./data di kraken
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    env_file: .env             # TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (chmod 600)
+    environment:
+      TZ: Europe/Rome
+    volumes:
+      - ./config:/config:ro
+      - ./data:/data
+    mem_limit: 256m
+    cpus: 2.0
+    stop_grace_period: 15s     # SIGTERM -> flush del batch SQLite
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/pumpbot", "healthcheck"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
